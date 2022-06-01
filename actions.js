@@ -35,7 +35,7 @@ export const disableModal = () => {
 export const createMovieDisplay = (event) => {
     modal.main.innerHTML = updateMovieFormRender();
     modal.foot.innerHTML = createUpdateButtonsRender(0, "create");
-    
+
     $("button.confirm.create").click(createMovieRecord);
     enableModal()
 }
@@ -43,64 +43,110 @@ export const createMovieDisplay = (event) => {
 
 export const createMovieRecord = (event) => {
     event.preventDefault()
-    
+
     const form = document.forms.create
-    
+
     let data = {
         title: form.title.value,
         genre: form.genre.value,
         rating: form.rating.value,
         director: form.director.value,
         plot: form.plot.value,
-        id: form.id.value 
+        id: form.id.value
     }
-    
+
     let settings = {
         ...fetchSettings,
         method: "POST",
         body: JSON.stringify(data)
     }
-    
+
     fetch(baseURL, settings)
         .then(res => res.json())
         .then(res => {
             console.log("create movie record:", res)
         })
 }
-/**
-settings = POST
-fetch
+
+export const readMovieDisplay = (event) => {
+    toggleModal()
+
+    fetch(baseURL + event.target.id, fetchSettings)
+        .then(res => res.json())
+        .then(res => {
+            modal.main.innerHTML = readDisplayMovieRender(res)
+            modal.foot.innerHTML = <button class="close.modal">Close</button>
+
+            $(".close-modal").click(() => disableModal())
+        })
+}
 
 
-export const readMovieDisplay
-toggleModal
-fetch
-via
-id
-readDisplayMovieRender
-disableModal
+export const updateMovieDisplay = (event) => {
+    enableModal()
 
-export const updateMovieDisplay
-enableModal
-fetch
-updateMovieFormRender
-createUpdateButtonsRender
-updateMovieRecord
+    fetch(baseURL + event.target.value, fetchSettings)
+        .then(res => res.json())
+        .then(res => {
+            modal.main.innerHTML = updateMovieFormRender(res)
+            modal.foot.innerHTML = createUpdateButtonsRender(res.id)
+        })
+    $("button.confirm.update").click(updateMovieRecord)
+}
 
-export const updateMovieRecord
-event.preventDefault
-settings = PUT
-fetch
-disableModal
 
-export const deleteMovieDisplay
-toggleModal
-deleteMovieRender
-deleteMovieRecord
+export const updateMovieRecord = (event) => {
+    event.preventDefault()
 
-export const deleteMovieRecord
-event.preventDefault
-settings = DELETE
-fetch
-disableModal
+    const form = document.forms.update;
+
+    let data = {
+        title: form.title.value,
+        genre: form.genre.value,
+        rating: form.rating.value,
+        director: form.director.value,
+        plot: form.plot.value,
+        id: form.id.value
+    }
+
+    let settings = {
+        ...fetchSettings,
+        method: "PUT",
+        body: JSON.stringify(data)
+    }
+
+    fetch(baseURL + event.target.value, settings)
+        .then(res => res.json())
+        .then(res => {
+            console.log("update movie record:", res)
+            disableModal()
+        })
+
+}
+
+
+export const deleteMovieDisplay = (event) => {
+    toggleModal()
+
+    modal.head.innerHTML = `<h3>Do you wish to delete this movie?</h3>`
+    modal.main.innerHTML = `<p>If you delete this movie it will be gone forever!</p>`
+    modal.foot.innerHTML = deleteMovieRender(event.target.value)
+
+    $("button.confirm").click(deleteMovieRecord)
+}
+
+export const deleteMovieRecord = (event) => {
+    event.preventDefault()
+
+    let settings = fetchSettings
+    settings.method = "DELETE"
+
+    fetch(baseURL + event.target.value, settings)
+        .then(res => res.json())
+        .then(res => {
+            console.log("delete movie record res:", res)
+            disableModal()
+        })
+    $("button.confirm.update").click(updateMovieRecord)
+}
 
