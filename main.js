@@ -1,6 +1,6 @@
 "use strict";
 import {movieToRecordRender} from "./render.js";
-import {createMovieDisplay, readProfileAndDisplay, updateMovieDisplay, deleteMovieDisplay} from "./actions.js";
+import {createMovieDisplay, readMovieDisplay, updateMovieDisplay, deleteMovieDisplay} from "./actions.js";
 import {baseURL, fetchSettings} from "./constants.js";
 
 fetch(baseURL, fetchSettings)
@@ -12,7 +12,7 @@ fetch(baseURL, fetchSettings)
             res.map(movieToRecordRender).join('')
 
         $("#create").click(createMovieDisplay);
-        $(".read-record").click(readProfileAndDisplay);
+        $(".read-record").click(readMovieDisplay);
         $(".update").click(updateMovieDisplay);
         $(".delete").click(deleteMovieDisplay);
     })

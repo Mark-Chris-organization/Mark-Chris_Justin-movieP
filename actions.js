@@ -33,7 +33,7 @@ export const disableModal = () => {
 }
 
 export const createMovieDisplay = (event) => {
-    modal.main.innerHTML = updateMovieFormRender();
+    modal.main.innerHTML = createMovieFormRender();
     modal.foot.innerHTML = createUpdateButtonsRender(0, "create");
 
     $("button.confirm.create").click(createMovieRecord);
@@ -75,9 +75,9 @@ export const readMovieDisplay = (event) => {
         .then(res => res.json())
         .then(res => {
             modal.main.innerHTML = readDisplayMovieRender(res)
-            modal.foot.innerHTML = <button class="close.modal">Close</button>
+            modal.foot.innerHTML = `<button class="close.modal">Close</button>`
 
-            $(".close-modal").click(() => disableModal())
+            $(".close-modal").click(disableModal())
         })
 }
 
@@ -121,7 +121,6 @@ export const updateMovieRecord = (event) => {
             console.log("update movie record:", res)
             disableModal()
         })
-
 }
 
 
