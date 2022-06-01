@@ -32,11 +32,11 @@ export const disableModal = () => {
     modal.all.classList.add("hide");
 }
 
-export const createMovieDisplay = (event) => {
+export const createMovieDisplay = () => {
     modal.main.innerHTML = createMovieFormRender();
     modal.foot.innerHTML = createUpdateButtonsRender(0, "create");
 
-    $("button.confirm.create").click(createMovieRecord);
+    $("button.confirm.create").on('click', createMovieRecord);
     enableModal()
 }
 
@@ -71,27 +71,31 @@ export const createMovieRecord = (event) => {
 export const readMovieDisplay = (event) => {
     toggleModal()
 
-    fetch(baseURL + event.target.id, fetchSettings)
+    fetch(baseURL + '/' + event.target.value, fetchSettings)
         .then(res => res.json())
         .then(res => {
             modal.main.innerHTML = readDisplayMovieRender(res)
             modal.foot.innerHTML = `<button class="close.modal">Close</button>`
 
-            $(".close-modal").click(disableModal())
+            $(".close-modal").on('click', disableModal)
         })
 }
-
 
 export const updateMovieDisplay = (event) => {
     enableModal()
 
-    fetch(baseURL + event.target.value, fetchSettings)
+    fetch(baseURL + '/' + event.target.value, fetchSettings)
         .then(res => res.json())
+        .then(res => {
+            console.log(res.id)
+        })
+
+
         .then(res => {
             modal.main.innerHTML = updateMovieFormRender(res)
             modal.foot.innerHTML = createUpdateButtonsRender(res.id)
         })
-    $("button.confirm.update").click(updateMovieRecord)
+    $("button.confirm.update").on('click', updateMovieRecord)
 }
 
 
@@ -115,7 +119,7 @@ export const updateMovieRecord = (event) => {
         body: JSON.stringify(data)
     }
 
-    fetch(baseURL + event.target.value, settings)
+    fetch(baseURL + '/' + event.target.value, settings)
         .then(res => res.json())
         .then(res => {
             console.log("update movie record:", res)
@@ -131,7 +135,7 @@ export const deleteMovieDisplay = (event) => {
     modal.main.innerHTML = `<p>If you delete this movie it will be gone forever!</p>`
     modal.foot.innerHTML = deleteMovieRender(event.target.value)
 
-    $("button.confirm").click(deleteMovieRecord)
+    $("button.confirm").on('click', deleteMovieRecord)
 }
 
 export const deleteMovieRecord = (event) => {
@@ -140,12 +144,12 @@ export const deleteMovieRecord = (event) => {
     let settings = fetchSettings
     settings.method = "DELETE"
 
-    fetch(baseURL + event.target.value, settings)
+    fetch(baseURL + '/' + event.target.value, settings)
         .then(res => res.json())
         .then(res => {
             console.log("delete movie record res:", res)
             disableModal()
         })
-    $("button.confirm.update").click(updateMovieRecord)
+    $("button.confirm.update").on('click', updateMovieRecord)
 }
 

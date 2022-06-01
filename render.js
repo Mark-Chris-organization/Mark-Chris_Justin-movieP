@@ -2,11 +2,11 @@
 
 export const movieToRecordRender = ({title, rating, id}) => {
     return `<tr data-id="${id}" >
-                       <td data-id="${id}" class="movie-record">${title}</td>
-                       <td data-id="${id}" class="movie-record">${rating}</td>
+                       <td data-id="${id}" class="read-record">${title}</td>
+                       <td data-id="${id}" class="read-record">${rating}</td>
                        <td>
                             <button class="delete" value="${id}">X</button>
-                            <button class="edit" value="${id}">Edit</button>
+                            <button class="update" value="${id}">Edit</button>
                        </td>
                    </tr>`
 };
@@ -19,7 +19,7 @@ export const createMovieFormRender = () => {
     return createFormRender("create")
 }
 
-export const createFormRender = (data) => {
+export const createFormRender = (type, data) => {
     if(!data) {
         data = {
             title: "",
@@ -34,7 +34,7 @@ export const createFormRender = (data) => {
     let {title, genre, rating, director, plot, id} = data
 
     return `
-    <form name="update">
+    <form name="${type}">
         <input type="hidden" name="id" value="${id}">
         <label for="field1">Title</label><input type="text" name="title" value="${title}" id="field1">
         <label for="field2">Genre</label><input type="text" name="genre" value="${genre}" id="field2">

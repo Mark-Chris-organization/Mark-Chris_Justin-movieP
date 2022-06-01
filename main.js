@@ -11,8 +11,8 @@ fetch(baseURL, fetchSettings)
         document.getElementById('movie_id').innerHTML +=
             res.map(movieToRecordRender).join('')
 
-        $("#create").click(createMovieDisplay);
-        $(".read-record").click(readMovieDisplay);
-        $(".update").click(updateMovieDisplay);
-        $(".delete").click(deleteMovieDisplay);
+        $("#create").on('click', createMovieDisplay);
+        $(".read-record").on('click', readMovieDisplay);
+        $(".update").on('click', updateMovieDisplay);
+        $(".delete").on('click', deleteMovieDisplay);
     })
