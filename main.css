@@ -161,8 +161,8 @@ footer {
     align-items: center;
 }
 
-.profile .header {
-    transform: translateY(-75px);
+.profile-header {
+    /*transform: translateY(-75px);*/
     background-color: rgba(82, 124, 118, 0.98);
     width: 115%;
     display: flex;

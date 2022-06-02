@@ -41,7 +41,6 @@ export const createFormRender = (type, data) => {
         <label for="field3">Rating</label><input type="text" name="rating" value="${rating}" id="field3">
         <label for="field4">Director</label><input type="text" name="director" value="${director}" id="field4">
         <label for="field5">Plot</label><input type="text" name="plot" value="${plot}" id="field5">
-        <label for="field6">ID</label><input type="number" value="id" name="id" id="field6">
     </form>
     `
 }
@@ -53,7 +52,7 @@ export const readDisplayMovieRender =({title, genre, rating, director, plot, id}
     return `
        <div class="profile">
                 <section class="header">
-                    <h3 class="profile-header">${title} ${genre}</h3>
+                    <h3 class="profile-header">${title}</h3>
                     <p class="sub-header">${director}</p>
                 </section>
 
@@ -61,7 +60,7 @@ export const readDisplayMovieRender =({title, genre, rating, director, plot, id}
                     <h4>Details</h4>
                     <div>Rating: <span>${rating}</span></div>
                     <div>Plot: <span>${plot}</span></div>
-                    <div>ID:  <span>${id}</span></div>
+                    <div>Genre:  <span>${genre}</span></div>
                 </section>
        </div>
     `

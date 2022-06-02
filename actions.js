@@ -1,5 +1,7 @@
 "use strict";
-import {baseURL, fetchSettings} from "./constants.js";
+import {baseURL, fetchSettings, OMDBbaseURL} from "./constants.js";
+import {OMDB_APIKEY} from "./keys.js";
+
 import {
     createUpdateButtonsRender,
     createMovieFormRender,
@@ -70,12 +72,18 @@ export const createMovieRecord = (event) => {
 
 export const readMovieDisplay = (event) => {
     toggleModal()
-    console.log('URL is:',baseURL, 'Target value is:', event.target.data.id)
-    fetch(baseURL + '/' + event.target.value, fetchSettings)
+    let movieId = event.target.getAttribute('data-id')
+
+    fetch(baseURL + '/' + movieId, fetchSettings)
         .then(res => res.json())
         .then(res => {
+            fetch(`${OMDBbaseURL}?apikey=${OMDB_APIKEY}&i=tt3896198`)
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                    })
             modal.main.innerHTML = readDisplayMovieRender(res)
-            modal.foot.innerHTML = `<button class="close.modal">Close</button>`
+            modal.foot.innerHTML = `<button class="close-modal">Close</button>`
 
             $(".close-modal").on('click', disableModal)
         })
@@ -93,7 +101,7 @@ export const updateMovieDisplay = (event) => {
 
         .then(res => {
             modal.main.innerHTML = updateMovieFormRender(res)
-            modal.foot.innerHTML = createUpdateButtonsRender(res.id)
+            modal.foot.innerHTML = createUpdateButtonsRender(event.target.value)
         })
     $("button.confirm.update").on('click', updateMovieRecord)
 }
@@ -143,6 +151,8 @@ export const deleteMovieRecord = (event) => {
 
     let settings = fetchSettings
     settings.method = "DELETE"
+
+    console.log(event.target.value)
 
     fetch(baseURL + '/' + event.target.value, settings)
         .then(res => res.json())
