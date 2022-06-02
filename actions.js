@@ -70,7 +70,7 @@ export const createMovieRecord = (event) => {
 
 export const readMovieDisplay = (event) => {
     toggleModal()
-
+    console.log('URL is:',baseURL, 'Target value is:', event.target.data.id)
     fetch(baseURL + '/' + event.target.value, fetchSettings)
         .then(res => res.json())
         .then(res => {

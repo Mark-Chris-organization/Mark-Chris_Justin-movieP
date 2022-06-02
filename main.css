@@ -38,7 +38,7 @@ footer {
 
 /* User Tables */
 
-#userTable {
+#movieTable {
     border-collapse: collapse;
     margin: 25px 25px;
     font-size: 0.9em;
@@ -47,48 +47,48 @@ footer {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-#userTable thead tr {
+#movieTable thead tr {
     background-color: #009879;
     color: #ffffff;
     text-align: left;
 }
 
-#userTable img {
+#movieTable img {
     border-radius: 50%;
     width: 30px;
     height: 30px;
 }
 
-#userTable th,
-#userTable td {
+#movieTable th,
+#movieTable td {
     padding: 12px 15px;
 
 }
 
-#userTable td::first-letter {
+#movieTable td::first-letter {
     text-transform:capitalize;
 }
 
-#userTable tbody tr {
+#movieTable tbody tr {
     border-bottom: 1px solid #dddddd;
 }
 
-#userTable tbody tr:nth-of-type(even) {
+#movieTable tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
 }
 
-#userTable tbody tr:last-of-type {
+#movieTable tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
 }
 
-#userTable tbody tr:hover {
+#movieTable tbody tr:hover {
     /*font-weight: bold;*/
     color: #009879;
     cursor: pointer;
     background-color: #BDD2B6;;
 }
 
-#userTable .user-record {
+#movieTable .user-record {
     cursor: pointer;
 }
 
